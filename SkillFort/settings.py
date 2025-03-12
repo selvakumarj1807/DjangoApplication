@@ -124,28 +124,26 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-#STATIC_URL = 'static/'
+import os
+from pathlib import Path
 
-# Static files (CSS, JavaScript, Images)
+BASE_DIR = Path(__file__).resolve().parent.parent
+
 STATIC_URL = '/static/'
 
-# Shared static folder path
-STATICFILES_DIRS = [
-    BASE_DIR / "static",  # For Django 3.1+
-    
-    # Or for older versions (below 3.1):
-    # os.path.join(BASE_DIR, 'static'),
-]
-
-# For production (collects all static files into one folder)
+# Ensure all static files are collected into this directory
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
+# Add staticfiles directory for development
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
+# Enable whitenoise for serving static files
+INSTALLED_APPS += ['whitenoise.runserver_nostatic']
+MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# Ensure whitenoise is used to serve static files
-INSTALLED_APPS += ['whitenoise.runserver_nostatic']
-MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
