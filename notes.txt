@@ -1,0 +1,40 @@
+A virtual environment is an isolated environment that allows you to manage project-specific 
+dependencies separately from the system's global Python installation.
+
+Key Features:
+✅ Isolates dependencies for each project.
+✅ Prevents version conflicts between packages.
+✅ Ensures consistency when deploying across environments (development, testing, production).
+✅ Easy to recreate the environment using requirements.txt.
+
+A non-virtual environment-based project uses the global Python environment to manage dependencies.
+This method is less secure and less scalable for modern development practices.
+
+Key Features:
+❗ Dependencies are installed globally, affecting all projects.
+❗ Higher risk of version conflicts.
+❗ Difficult to maintain consistent project environments.
+
+Use venv or virtualenv to create a virtual environment:
+
+python -m venv venv
+
+Activate the environment:
+
+.\venv\Scripts\activate
+
+Install project dependencies:
+
+pip install django
+
+Freeze the dependencies to track installed packages:
+
+pip freeze > requirements.txt
+
+To recreate the environment later:
+
+pip install -r requirements.txt
+
+Mongodb Connection in django
+
+pip install djongo

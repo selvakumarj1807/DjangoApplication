@@ -1,0 +1,160 @@
+{% extends "StudentEnquiryBase.html" %}
+{% block title %} Student Enquiry Form {% endblock title %}
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row page-titles mx-0">
+        <div class="col-sm-6 p-md-0">
+            <div class="welcome-text">
+                <h4>Hi, welcome back!</h4>
+                <span>Student Enquiry</span>
+            </div>
+        </div>
+        <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Forms</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Student Enquiry</a></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">STUDENT ENQUIRY FORM</h4>
+        </div>
+
+        <div class="card-body">
+            <form method="POST" action="{% url 'StudentEnquiry:submit-enquiry' %}">
+                {% csrf_token %}
+                <div class="row">
+                    <!-- Column 1 -->
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dob">Date of Birth</label>
+                            <input type="date" class="form-control" id="dob" name="dob" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mobile_no">Mobile Number</label>
+                            <input type="text" class="form-control" id="mobile_no" name="mobile_no" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email_id">Email ID</label>
+                            <input type="email" class="form-control" id="email_id" name="email_id" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="education">Education Qualification</label>
+                            <input type="text" class="form-control" id="education" name="education" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="year_passout">Year of Pass Out</label>
+                            <input type="text" class="form-control" id="year_passout" name="year_passout" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="required_course">Required Course</label>
+                            <input type="text" class="form-control" id="required_course" name="required_course"
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Placements Required</label>
+                            <div>
+                                <input type="radio" id="placement_yes" name="placement" value="yes">
+                                <label for="placement_yes">Yes</label>
+                                <input type="radio" id="placement_no" name="placement" value="no">
+                                <label for="placement_no">No</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Profession</label>
+                            <div>
+                                <input type="radio" id="profession_it" name="profession" value="IT">
+                                <label for="profession_it">IT</label>
+                                <input type="radio" id="profession_non_it" name="profession" value="NON-IT">
+                                <label for="profession_non_it">Non-IT</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="company_name">Company Name</label>
+                            <input type="text" class="form-control" id="company_name" name="company_name">
+                        </div>
+                    </div>
+
+                    <!-- Column 2 -->
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label for="designation">Designation</label>
+                            <input type="text" class="form-control" id="designation" name="designation">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="duration">Duration</label>
+                            <input type="text" class="form-control" id="duration" name="duration">
+                        </div>
+
+                        <div class="form-group">
+                            <label>PF</label>
+                            <div>
+                                <input type="radio" id="pf_yes" name="pf" value="yes">
+                                <label for="pf_yes">Yes</label>
+                                <input type="radio" id="pf_no" name="pf" value="no">
+                                <label for="pf_no">No</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="uan_no">UAN Number</label>
+                            <input type="text" class="form-control" id="uan_no" name="uan_no">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="form_16">Form 16</label>
+                            <input type="text" class="form-control" id="form_16" name="form_16">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <textarea class="form-control" id="address" name="address" rows="3"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pan_aadhar">PAN / Aadhar No</label>
+                            <input type="text" class="form-control" id="pan_aadhar" name="pan_aadhar">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="refer_by">Refer By</label>
+                            <input type="text" class="form-control" id="refer_by" name="refer_by">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="referer_mbl">Referer Mobile No</label>
+                            <input type="text" class="form-control" id="referer_mbl" name="referer_mbl">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Centered Button Section -->
+                <div class="row">
+                    <div class="col-12 text-center mt-4">
+                        <button type="submit" class="btn btn-primary px-5">Submit</button>
+                        <button type="reset" class="btn btn-danger px-5">Reset</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

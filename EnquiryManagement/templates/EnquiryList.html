@@ -1,0 +1,159 @@
+{% extends "EnquiryManagementBase.html" %}
+{% block title %} Enquiry Management {% endblock title %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row page-titles mx-0">
+        <div class="col-sm-6 p-md-0">
+            <div class="welcome-text">
+                <h4>Hi, welcome back!</h4>
+                <span>Student Enquiry List</span>
+            </div>
+        </div>
+        <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Table</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Enquiries</a></li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- Modal for Enquiry Details -->
+    <!-- Modal for Enquiry Details -->
+    <div class="modal fade" id="exampleModalLong" tabindex="-1" aria-labelledby="exampleModalLongTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Enquiry Details</h5>
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Name:</strong> <span id="modal-name"></span></p>
+                    <p><strong>DOB:</strong> <span id="modal-dob"></span></p>
+                    <p><strong>Mobile No:</strong> <span id="modal-mobile"></span></p>
+                    <p><strong>Email:</strong> <span id="modal-email"></span></p>
+                    <p><strong>Education:</strong> <span id="modal-education"></span></p>
+                    <p><strong>Year Passout:</strong> <span id="modal-year-passout"></span></p>
+                    <p><strong>Required Course:</strong> <span id="modal-required-course"></span></p>
+                    <p><strong>Placement:</strong> <span id="modal-placement"></span></p>
+                    <p><strong>Profession:</strong> <span id="modal-profession"></span></p>
+                    <p><strong>Company Name:</strong> <span id="modal-company"></span></p>
+                    <p><strong>Designation:</strong> <span id="modal-designation"></span></p>
+                    <p><strong>Duration:</strong> <span id="modal-duration"></span></p>
+                    <p><strong>PF:</strong> <span id="modal-pf"></span></p>
+                    <p><strong>UAN No:</strong> <span id="modal-uan"></span></p>
+                    <p><strong>Form 16:</strong> <span id="modal-form16"></span></p>
+                    <p><strong>Address:</strong> <span id="modal-address"></span></p>
+                    <p><strong>PAN/Aadhar:</strong> <span id="modal-pan-aadhar"></span></p>
+                    <p><strong>Referred By:</strong> <span id="modal-refer-by"></span></p>
+                    <p><strong>Referred Contact:</strong> <span id="modal-referer-mbl"></span></p>
+                    <p><strong>Created At:</strong> <span id="modal-created-at"></span></p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger light" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DataTable for Student Enquiries -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Student Enquiries</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="example" class="display responsive nowrap" style="width: 100%">
+                            <thead>
+                                <tr>
+                                    <th>Enquiry</th>
+                                    <th>Name</th>
+                                    <th>DOB</th>
+                                    <th>Mobile No</th>
+                                    <th>Email</th>
+                                    <th>Education</th>
+                                    <th>Year Passout</th>
+                                    <th>Required Course</th>
+                                    <th>Placement</th>
+                                    <th>Profession</th>
+                                    <th>Company Name</th>
+                                    <th>Designation</th>
+                                    <th>Duration</th>
+                                    <th>PF</th>
+                                    <th>UAN No</th>
+                                    <th>Form 16</th>
+                                    <th>Address</th>
+                                    <th>PAN/Aadhar</th>
+                                    <th>Referred By</th>
+                                    <th>Referred Contact</th>
+                                    <th>Created At</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for enquiry in enquiries %}
+                                <tr>
+                                    <td>
+                                        <button type="button" class="btn btn-primary mb-2 show-enquiry-btn"
+                                            data-toggle="modal" data-target="#exampleModalLong"
+                                            data-name="{{ enquiry.name }}" data-dob="{{ enquiry.dob }}"
+                                            data-mobile="{{ enquiry.mobile_no }}" data-email="{{ enquiry.email_id }}"
+                                            data-education="{{ enquiry.education }}"
+                                            data-year-passout="{{ enquiry.year_passout }}"
+                                            data-required-course="{{ enquiry.required_course }}"
+                                            data-placement="{{ enquiry.placement }}"
+                                            data-profession="{{ enquiry.profession }}"
+                                            data-company="{{ enquiry.company_name|default:'-' }}"
+                                            data-designation="{{ enquiry.designation|default:'-' }}"
+                                            data-duration="{{ enquiry.duration|default:'-' }}"
+                                            data-pf="{{ enquiry.pf }}" data-uan="{{ enquiry.uan_no|default:'-' }}"
+                                            data-form16="{{ enquiry.form_16|default:'-' }}"
+                                            data-address="{{ enquiry.address }}"
+                                            data-pan-aadhar="{{ enquiry.pan_aadhar|default:'-' }}"
+                                            data-refer-by="{{ enquiry.refer_by|default:'-' }}"
+                                            data-referer-mbl="{{ enquiry.referer_mbl|default:'-' }}"
+                                            data-created-at="{{ enquiry.created_at|date:'Y-m-d H:i' }}">
+                                            Show Enquiry
+                                        </button>
+                                    </td>
+                                    <td>{{ enquiry.name }}</td>
+                                    <td>{{ enquiry.dob }}</td>
+                                    <td>{{ enquiry.mobile_no }}</td>
+                                    <td>{{ enquiry.email_id }}</td>
+                                    <td>{{ enquiry.education }}</td>
+                                    <td>{{ enquiry.year_passout }}</td>
+                                    <td>{{ enquiry.required_course }}</td>
+                                    <td>{{ enquiry.placement }}</td>
+                                    <td>{{ enquiry.profession }}</td>
+                                    <td>{{ enquiry.company_name|default:"-" }}</td>
+                                    <td>{{ enquiry.designation|default:"-" }}</td>
+                                    <td>{{ enquiry.duration|default:"-" }}</td>
+                                    <td>{{ enquiry.pf }}</td>
+                                    <td>{{ enquiry.uan_no|default:"-" }}</td>
+                                    <td>{{ enquiry.form_16|default:"-" }}</td>
+                                    <td>{{ enquiry.address }}</td>
+                                    <td>{{ enquiry.pan_aadhar|default:"-" }}</td>
+                                    <td>{{ enquiry.refer_by|default:"-" }}</td>
+                                    <td>{{ enquiry.referer_mbl|default:"-" }}</td>
+                                    <td>{{ enquiry.created_at|date:"Y-m-d H:i" }}</td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="20" class="text-center">No enquiries found</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock content %}
