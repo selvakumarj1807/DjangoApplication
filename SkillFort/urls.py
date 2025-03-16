@@ -24,7 +24,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('StudentEnquiry.urls', namespace='StudentEnquiry')),
     path('student-enquiry/', include('StudentEnquiry.urls', namespace='StudentEnquiry')),
-    path('enquiry-management/', include('EnquiryManagement.urls', namespace='EnquiryManagement')),
+    path('administrator/', include('EnquiryManagement.urls', namespace='EnquiryManagement')),
+    path('student/', include('student.urls', namespace='student')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

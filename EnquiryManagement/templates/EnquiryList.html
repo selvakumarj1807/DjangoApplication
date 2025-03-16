@@ -1,5 +1,5 @@
 {% extends "EnquiryManagementBase.html" %}
-{% block title %} Enquiry Management {% endblock title %}
+{% block title %} Administrator - Enquiry List {% endblock title %}
 
 {% block content %}
 
@@ -139,7 +139,7 @@
                                     <td>{{ enquiry.pan_aadhar|default:"-" }}</td>
                                     <td>{{ enquiry.refer_by|default:"-" }}</td>
                                     <td>{{ enquiry.referer_mbl|default:"-" }}</td>
-                                    <td>{{ enquiry.created_at|date:"Y-m-d H:i" }}</td>
+                                    <td>{{ enquiry.created_at|date:"Y-m-d H:i A" }}</td>
                                 </tr>
                                 {% empty %}
                                 <tr>
@@ -155,5 +155,40 @@
     </div>
 </div>
 </div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- JavaScript for Dynamic Modal Data -->
+<script>
+    $(document).ready(function () {
+        // Check if DataTable is already initialized and destroy it before reinitializing
+        if ($.fn.DataTable.isDataTable('#example')) {
+            $('#example').DataTable().destroy();
+        }
+
+        // Reinitialize DataTable
+        $('#example').DataTable({
+            "order": [[20, "desc"]], // Sorting by "Created At" column (index 20, 0-based index)
+            "responsive": true,
+            "autoWidth": false,
+            "pageLength": 5,
+            "lengthChange": true,
+            "ordering": true,
+            "searching": true,
+            "language": {
+                "searchPlaceholder": "Search enquiries...",
+                "zeroRecords": "No matching enquiries found",
+                "lengthMenu": "Show _MENU_ enquiries per page",
+                "info": "Showing _START_ to _END_ of _TOTAL_ enquiries",
+                "paginate": {
+                    "previous": "&laquo;",
+                    "next": "&raquo;"
+                }
+            }
+        });
+    });
+
+</script>
+
 
 {% endblock content %}

@@ -1,0 +1,161 @@
+{% extends "StudentBase.html" %}
+{% block title %} Student Interview Schedule Form {% endblock title %}
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row page-titles mx-0">
+        <div class="col-sm-6 p-md-0">
+            <div class="welcome-text">
+                <h4>Hi, welcome back!</h4>
+                <span>Student Interview Schedule Form</span>
+            </div>
+        </div>
+        <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Forms</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Interview Schedule</a></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10 col-sm-12">
+            <div class="card shadow-lg p-4">
+                <h4 class="text-center mb-4">Interview Schedule Form</h4>
+                <form method="POST" action="{% url 'student:interview_submit_form' %}">
+                    {% csrf_token %}
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="company" class="form-label">Company</label>
+                            <input type="text" class="form-control" id="company" name="company" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="round" class="form-label">Round</label>
+                            <input type="text" class="form-control" id="round" name="round" required>
+                        </div>
+
+
+                        <!-- Time Input -->
+                        <div class="col-md-6 mb-3">
+                            <label for="date" class="form-label">Date</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-calendar-event"></i></span>
+                                <input type="text" class="form-control" id="date" name="date" placeholder="Select Date"
+                                    required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <!-- Date Input -->
+                        <div class="col-md-6 mb-3">
+                            <label for="time" class="form-label">Time</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-clock"></i></span>
+                                <input type="text" class="form-control" id="time" name="time" placeholder="Select Time"
+                                    required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="role" class="form-label">Role</label>
+                            <input type="text" class="form-control" id="role" name="role" required>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="student_mobile" class="form-label">Student Mobile</label>
+                            <input type="text" class="form-control" id="student_mobile" name="student_mobile"
+                                pattern="\d{10}" maxlength="10" required
+                                title="Mobile number must be exactly 10 digits">
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <button type="submit" id="submitButton" class="btn btn-primary px-4">Submit</button>
+                        <button type="reset" class="btn btn-danger px-4">Reset</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Flatpickr JS -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+<script>
+    // Initialize Flatpickr for Date Picker
+    flatpickr("#date", {
+        dateFormat: "Y-m-d",
+        minDate: "today",
+        disableMobile: true // Fix for mobile view
+    });
+
+    // Initialize Flatpickr for Time Picker (12-hour format with AM/PM)
+    flatpickr("#time", {
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "h:i K",
+        time_24hr: false,
+        disableMobile: true // Fix for mobile view
+    });
+
+    document.querySelector("form").addEventListener("submit", function (event) {
+        let timeInput = document.getElementById("time");
+        let timeValue = timeInput.value.trim();
+
+        if (timeValue) {
+            // Convert "hh:mm AM/PM" to Django-compatible format "HH:MM:SS"
+            let timeParts = timeValue.match(/(\d+):(\d+) (AM|PM)/);
+            if (timeParts) {
+                let hours = parseInt(timeParts[1]);
+                let minutes = timeParts[2];
+                let period = timeParts[3];
+
+                if (period === "PM" && hours !== 12) {
+                    hours += 12;
+                } else if (period === "AM" && hours === 12) {
+                    hours = 0;
+                }
+
+                // Format time as HH:MM:SS
+                let formattedTime = `${String(hours).padStart(2, "0")}:${minutes}:00`;
+                document.getElementById("time") = formattedTime;
+            }
+        }
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector("form");
+        const submitButton = document.querySelector("#submitButton");
+
+        form.addEventListener("submit", function () {
+            submitButton.disabled = true; // Disable button
+            submitButton.innerHTML = "Submitting..."; // Show submitting text
+        });
+    });
+</script>
+
+
+
+{% endblock content %}

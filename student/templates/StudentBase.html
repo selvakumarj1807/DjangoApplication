@@ -18,11 +18,22 @@
     <title>{% block title %}{% endblock %}</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon.png' %}">
-    <!-- Datatable -->
-    <link href="{% static 'vendor/datatables/css/jquery.dataTables.min.css' %}" rel="stylesheet">
-    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="{% static 'vendor/chartist/css/chartist.min.css' %}">
     <link href="{% static 'vendor/bootstrap-select/dist/css/bootstrap-select.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/owl-carousel/owl.carousel.css' %}" rel="stylesheet">
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+    <!-- Form step -->
+    <link href="{% static 'vendor/jquery-smartwizard/dist/css/smart_wizard.min.css' %}" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+    <!-- Bootstrap Icons (Optional) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 
 
     <style>
@@ -34,11 +45,20 @@
             /* Spacing between logo and text */
         }
 
-        .logo-abbr {
-            width: 50px;
-            height: 50px;
-            border-radius: 6px;
-            /* Optional for rounded corners */
+
+        .form-group label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .btn-primary {
+            background-color: #4CAF50;
+            border: none;
+        }
+
+        .btn-danger {
+            background-color: #F44336;
+            border: none;
         }
 
         .brand-title {
@@ -74,6 +94,7 @@
             border-radius: 6px;
             /* Optional for rounded corners */
         }
+
 
         /* Tablet Screens */
         @media (max-width: 1024px) {
@@ -123,9 +144,11 @@
             Nav header start
         ***********************************-->
         <div class="nav-header">
-            <a href="/administrator/" class="brand-logo">
+            <a href="/student-enquiry/" class="brand-logo">
                 <img src="{% static 'SF_Images/skillfortpngR.png' %}" alt="Company Logo" class="logo-abbr">
             </a>
+
+
 
             <div class="nav-control">
                 <div class="hamburger">
@@ -153,7 +176,7 @@
                 <nav class="navbar navbar-expand">
                     <div class="collapse navbar-collapse justify-content-end">
 
-
+                       
                     </div>
                 </nav>
 
@@ -171,24 +194,15 @@
                 <ul class="metismenu" id="menu">
                     <li class="nav-label first">Main Menu</li>
                     <li>
-                        <a href="/administrator/enquiryList/" class="ai-icon" aria-expanded="false">
+                        <a href="/student/interviewShedule/" class="ai-icon" aria-expanded="false">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#000"
                                 viewBox="0 0 24 24">
                                 <path d="M3 3v18h18V3H3zm16 16H5V5h14v14zM7 7h10v2H7V7zm0 4h10v2H7v-2zm0 4h7v2H7v-2z" />
                             </svg>
-                            <span class="nav-text">Enquiry List</span>
+                            <span class="nav-text">Interview Schedule</span>
                         </a>
                     </li>
 
-                    <li>
-                        <a href="/administrator/interviewList/" class="ai-icon" aria-expanded="false">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#000"
-                                viewBox="0 0 24 24">
-                                <path d="M3 3v18h18V3H3zm16 16H5V5h14v14zM7 7h10v2H7V7zm0 4h10v2H7v-2zm0 4h7v2H7v-2z" />
-                            </svg>
-                            <span class="nav-text">Interview List</span>
-                        </a>
-                    </li>
 
                 </ul>
 
@@ -205,6 +219,7 @@
                 <h2>Skill Fort</h2>
             </div>
             {% block content %}
+
             {% endblock %}
             <!--**********************************
             Content body end
@@ -238,24 +253,33 @@
 
         <!--**********************************
         Scripts
-        <script>
-        $(document).ready(function () {
-            console.log("jQuery is working!");
-            alert("jQuery is working!");
-        });
-    </script>
     ***********************************-->
-
-        
+        <!-- Required vendors -->
         <script src="{% static 'vendor/global/global.min.js' %}"></script>
         <script src="{% static 'vendor/bootstrap-select/dist/js/bootstrap-select.min.js' %}"></script>
-        <script src="{% static 'vendor/datatables/js/jquery.dataTables.min.js' %}"></script>
-        <script src="{% static 'js/plugins-init/datatables.init.js' %}"></script>
+        <script src="{% static 'vendor/chart.js/Chart.bundle.min.js' %}"></script>
+
+        <!-- Chart piety plugin files -->
+        <script src="{% static 'vendor/peity/jquery.peity.min.js' %}"></script>
+
+        <!-- Apex Chart -->
+        <script src="{% static 'vendor/apexchart/apexchart.js' %}"></script>
+
+        <!-- Dashboard 1 -->
+        <script src="{% static 'js/dashboard/dashboard-1.js' %}"></script>
+
+        <!-- Form validate init -->
+        <script src="{% static 'js/plugins-init/jquery.validate-init.js' %}"></script>
+
+        <!-- Form Steps -->
+        <script src="{% static 'vendor/jquery-smartwizard/dist/js/jquery.smartWizard.js' %}"></script>
+
+
+        <script src="{% static 'vendor/owl-carousel/owl.carousel.js' %}"></script>
         <script src="{% static 'js/custom.min.js' %}"></script>
         <script src="{% static 'js/deznav-init.js' %}"></script>
         <script src="{% static 'js/demo.js' %}"></script>
         <script src="{% static 'js/styleSwitcher.js' %}"></script>
-
 
 </body>
 

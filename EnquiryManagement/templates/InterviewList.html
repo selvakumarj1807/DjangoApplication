@@ -1,0 +1,262 @@
+{% extends "EnquiryManagementBase.html" %}
+{% block title %} Administrator - Interview List {% endblock title %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row page-titles mx-0">
+        <div class="col-sm-6 p-md-0">
+            <div class="welcome-text">
+                <h4>Hi, welcome back!</h4>
+                <span>Student Interview List</span>
+            </div>
+        </div>
+        <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Table</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Interviews</a></li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- Modal for Interview Details -->
+    <div class="modal fade" id="exampleModalLong" tabindex="-1" aria-labelledby="exampleModalLongTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Interview Details</h5>
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Name:</strong> <span id="modal-name"></span></p>
+                    <p><strong>Company:</strong> <span id="modal-company"></span></p>
+                    <p><strong>Round:</strong> <span id="modal-round"></span></p>
+                    <p><strong>Date:</strong> <span id="modal-date"></span></p>
+                    <p><strong>Time:</strong> <span id="modal-time"></span></p>
+                    <p><strong>Role:</strong> <span id="modal-role"></span></p>
+                    <p><strong>Student Mobile:</strong> <span id="modal-student_mobile"></span></p>
+                    <p><strong>Created At:</strong> <span id="modal-created-at"></span></p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger light" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="card text-center p-3">
+                <h5>Today's Date</h5>
+                <h4>{{ today_date }}</h4>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="card text-center p-3">
+                <h5>Today's Interviews</h5>
+                <h4>{{ today_interview_count }}</h4>
+            </div>
+        </div>
+    </div>
+    <!-- Today's Interviews Table -->
+    {% if today_interviews %}
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Today's Interviews List</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="todayInterviewsTable" class="display responsive nowrap" style="width: 100%">
+                            <thead>
+                                <tr>
+                                    <th data-priority="1">Interviews</th>
+                                    <th data-priority="2">Name</th>
+                                    <th data-priority="3">Company</th>
+                                    <th data-priority="4">Round</th>
+                                    <th data-priority="5">Date</th>
+                                    <th data-priority="6">Time</th>
+                                    <th data-priority="7">Role</th>
+                                    <th data-priority="8">Student Mobile</th>
+                                    <th data-priority="9">Created At</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for interview in today_interviews %}
+                                <tr>
+                                    <td>
+                                        <button type="button" class="btn btn-primary show-interview-btn"
+                                            data-toggle="modal" data-target="#exampleModalLong"
+                                            data-name="{{ interview.name }}" data-company="{{ interview.company }}"
+                                            data-round="{{ interview.round }}" data-date="{{ interview.date }}"
+                                            data-time="{{ interview.time }}" data-role="{{ interview.role }}"
+                                            data-student_mobile="{{ interview.student_mobile }}"
+                                            data-created-at="{{ interview.created_at|date:'Y-m-d H:i' }}">
+                                            Show Interview
+                                        </button>
+                                    </td>
+                                    <td>{{ interview.name }}</td>
+                                    <td>{{ interview.company }}</td>
+                                    <td>{{ interview.round }}</td>
+                                    <td>{{ interview.date }}</td>
+                                    <td>{{ interview.time }}</td>
+                                    <td>{{ interview.role }}</td>
+                                    <td>{{ interview.student_mobile }}</td>
+                                    <td>{{ interview.created_at|date:"Y-m-d H:i A" }}</td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="9" class="text-center">No Interviews found</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% else %}
+    <!-- Message if No Interviews Today -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="alert alert-warning text-center">
+                <strong>No interviews scheduled for today.</strong>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- DataTable for Student Interviews -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Student Interviews List</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="example" class="display responsive nowrap" style="width: 100%">
+                            <thead>
+                                <tr>
+                                    <th data-priority="1">Interviews</th>
+                                    <th data-priority="2">Name</th>
+                                    <th data-priority="3">Company</th>
+                                    <th data-priority="4">Round</th>
+                                    <th data-priority="5">Date</th>
+                                    <th data-priority="6">Time</th>
+                                    <th data-priority="7">Role</th>
+                                    <th data-priority="8">Student Mobile</th>
+                                    <th data-priority="9">Created At</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for interview in interviews %}
+                                <tr>
+                                    <td>
+                                        <button type="button" class="btn btn-primary show-interview-btn"
+                                            data-toggle="modal" data-target="#exampleModalLong"
+                                            data-name="{{ interview.name }}" data-company="{{ interview.company }}"
+                                            data-round="{{ interview.round }}" data-date="{{ interview.date }}"
+                                            data-time="{{ interview.time }}" data-role="{{ interview.role }}"
+                                            data-student_mobile="{{ interview.student_mobile }}"
+                                            data-created-at="{{ interview.created_at|date:'Y-m-d H:i' }}">
+                                            Show Interview
+                                        </button>
+                                    </td>
+                                    <td>{{ interview.name }}</td>
+                                    <td>{{ interview.company }}</td>
+                                    <td>{{ interview.round }}</td>
+                                    <td>{{ interview.date }}</td>
+                                    <td>{{ interview.time }}</td>
+                                    <td>{{ interview.role }}</td>
+                                    <td>{{ interview.student_mobile }}</td>
+                                    <td>
+                                        {{ interview.created_at|date:"Y-m-d H:i A" }}
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="9" class="text-center">No Interviews found</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            function initializeDataTable(selector, orderConfig) {
+                if ($.fn.DataTable.isDataTable(selector)) {
+                    $(selector).DataTable().destroy(); // Destroy previous instance if it exists
+                }
+
+                $(selector).DataTable({
+                    responsive: true,
+                    autoWidth: false,
+                    pageLength: 5,
+                    lengthChange: true,
+                    ordering: true,
+                    searching: true,
+                    order: orderConfig, // Dynamic order configuration
+                    columnDefs: [
+                        { targets: [0], orderable: false }, // Disable sorting for button column
+                        { targets: [4], type: "date" }, // Ensure Date column is recognized correctly
+                        { targets: [5], type: "time" }, // Ensure Time column is recognized correctly
+                        { targets: [1, 2], className: "all" },
+                        { targets: "_all", className: "min-tablet" }
+                    ],
+                    language: {
+                        searchPlaceholder: "Search interviews...",
+                        zeroRecords: "No matching interviews found",
+                        lengthMenu: "Show _MENU_ interviews per page",
+                        info: "Showing _START_ to _END_ of _TOTAL_ interviews",
+                        paginate: {
+                            previous: "&laquo;",
+                            next: "&raquo;"
+                        }
+                    }
+                });
+            }
+
+            // Initialize Today's Interviews Table (Ascending order by Date & Time)
+            if ($('#todayInterviewsTable').length) {
+                initializeDataTable('#todayInterviewsTable', [[4, "asc"], [5, "asc"]]);
+            }
+
+            // Initialize Student Interviews Table (Descending order by Date & Time)
+            if ($('#example').length) {
+                initializeDataTable('#example', [[4, "desc"], [5, "desc"]]);
+            }
+
+            // Ensure modal data is populated correctly
+            $(document).on('click', '.show-interview-btn', function () {
+                $('#modal-name').text($(this).data('name') || '-');
+                $('#modal-company').text($(this).data('company') || '-');
+                $('#modal-round').text($(this).data('round') || '-');
+                $('#modal-date').text($(this).data('date') || '-');
+                $('#modal-time').text($(this).data('time') || '-');
+                $('#modal-role').text($(this).data('role') || '-');
+                $('#modal-student_mobile').text($(this).data('student_mobile') || '-');
+                $('#modal-created-at').text($(this).data('created-at') || '-');
+            });
+        });
+
+    </script>
+
+</div>
+{% endblock content %}
