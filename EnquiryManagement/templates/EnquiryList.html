@@ -186,6 +186,52 @@
                 }
             }
         });
+
+        $(".show-enquiry-btn").on("click", function () {
+            // Get data attributes from the button
+            let name = $(this).data("name");
+            let dob = $(this).data("dob");
+            let mobile = $(this).data("mobile");
+            let email = $(this).data("email");
+            let education = $(this).data("education");
+            let yearPassout = $(this).data("year-passout");
+            let requiredCourse = $(this).data("required-course");
+            let placement = $(this).data("placement");
+            let profession = $(this).data("profession");
+            let company = $(this).data("company");
+            let designation = $(this).data("designation");
+            let duration = $(this).data("duration");
+            let pf = $(this).data("pf");
+            let uan = $(this).data("uan");
+            let form16 = $(this).data("form16");
+            let address = $(this).data("address");
+            let panAadhar = $(this).data("pan-aadhar");
+            let referBy = $(this).data("refer-by");
+            let refererMbl = $(this).data("referer-mbl");
+            let createdAt = $(this).data("created-at");
+
+            // Set modal content
+            $("#modal-name").text(name || "-");
+            $("#modal-dob").text(dob || "-");
+            $("#modal-mobile").text(mobile || "-");
+            $("#modal-email").text(email || "-");
+            $("#modal-education").text(education || "-");
+            $("#modal-year-passout").text(yearPassout || "-");
+            $("#modal-required-course").text(requiredCourse || "-");
+            $("#modal-placement").text(placement || "-");
+            $("#modal-profession").text(profession || "-");
+            $("#modal-company").text(company || "-");
+            $("#modal-designation").text(designation || "-");
+            $("#modal-duration").text(duration || "-");
+            $("#modal-pf").text(pf || "-");
+            $("#modal-uan").text(uan || "-");
+            $("#modal-form16").text(form16 || "-");
+            $("#modal-address").text(address || "-");
+            $("#modal-pan-aadhar").text(panAadhar || "-");
+            $("#modal-refer-by").text(referBy || "-");
+            $("#modal-referer-mbl").text(refererMbl || "-");
+            $("#modal-created-at").text(createdAt || "-");
+        });
     });
 
 </script>
